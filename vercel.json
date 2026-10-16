@@ -1,7 +1,4 @@
 {
-  "version": 2,
-  "name": "grace-life-community-church",
-  "cleanUrls": true,
   "headers": [
     {
       "source": "/(.*)",
@@ -12,11 +9,7 @@
         },
         {
           "key": "X-Frame-Options",
-          "value": "DENY"
-        },
-        {
-          "key": "X-XSS-Protection",
-          "value": "1; mode=block"
+          "value": "SAMEORIGIN"
         }
       ]
     },

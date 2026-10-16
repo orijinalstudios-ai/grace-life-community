@@ -32,10 +32,10 @@ Official web platform for **Grace Life Community Church**, Port Harcourt, Rivers
 
 ## 🚀 Deployment & Local Preview
 
-### Local Preview
-Open `index.html` directly in any web browser, or start a local server:
+### Local & Mobile Preview
+Open `index.html` directly in any web browser, double-click `preview.bat`, or run:
 ```bash
-npx serve .
+node scripts/preview-server.js
 ```
 
 ### Vercel Deployment

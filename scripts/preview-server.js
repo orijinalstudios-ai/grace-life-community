@@ -4,7 +4,7 @@ const path = require('path');
 const os = require('os');
 
 const PORT = process.env.PORT || 3000;
-const PUBLIC_DIR = __dirname;
+const PUBLIC_DIR = path.resolve(__dirname, '..');
 
 const MIME_TYPES = {
   '.html': 'text/html; charset=utf-8',
@@ -25,7 +25,6 @@ const server = http.createServer((req, res) => {
   
   const filePath = path.join(PUBLIC_DIR, reqPath);
   
-  // Prevent directory traversal
   if (!filePath.startsWith(PUBLIC_DIR)) {
     res.writeHead(403, { 'Content-Type': 'text/plain' });
     res.end('403 Forbidden');
@@ -65,7 +64,7 @@ server.listen(PORT, '0.0.0.0', () => {
   }
 
   console.log(`\n==================================================`);
-  console.log(`  Grace Life Community Church - Preview Server`);
+  console.log(`  Grace Life Community Church - Local & Mobile Preview`);
   console.log(`==================================================`);
   console.log(`  ➜ Local Desktop: http://localhost:${PORT}`);
   console.log(`  ➜ Mobile on WiFi: http://${localIP}:${PORT}`);
