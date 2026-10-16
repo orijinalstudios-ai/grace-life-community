@@ -1,5 +1,7 @@
 # Grace Life Community Church 🌿
 
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Forijinalstudios-ai%2Fgrace-life-community)
+
 Official web platform for **Grace Life Community Church**, Port Harcourt, Rivers State.
 
 > *"Grace doesn't wait for you to be 'perfect' before it equips you. He gave you everything that pertains to life and godliness."* — **2 Peter 1:3** • **#EachOneReachOne**
