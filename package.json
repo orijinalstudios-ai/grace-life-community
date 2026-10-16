@@ -4,8 +4,8 @@
   "description": "Official website for Grace Life Community Church, Port Harcourt",
   "main": "index.html",
   "scripts": {
-    "dev": "npx serve .",
-    "start": "npx serve ."
+    "dev": "node server.js",
+    "start": "node server.js"
   },
   "keywords": [
     "grace-life-community-church",
