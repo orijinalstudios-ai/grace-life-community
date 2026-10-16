@@ -1,0 +1,17 @@
+{
+  "name": "grace-life-community-church",
+  "version": "1.0.0",
+  "description": "Official website for Grace Life Community Church, Port Harcourt",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx serve .",
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "grace-life-community-church",
+    "port-harcourt",
+    "church-website"
+  ],
+  "author": "Grace Life Community Church",
+  "license": "MIT"
+}
