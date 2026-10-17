@@ -1428,8 +1428,9 @@ const DEFAULT_EVENTS = [
     month: 'NOV',
     day: '15',
     time: 'Nov 15–17 • 6:00 PM Daily',
-    location: 'Main Worship Sanctuary',
+    location: '50a Harold Wilson Drive, UPE Junction, Borikiri',
     description: 'A 3-day life-altering spiritual immersion with guest speakers, worship artists, and dynamic breakout sessions.',
+    imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuD1aDQLb7u5y0wa3mu795j1lFAdE0DDEmjec846qL7BWNKNreZrDbSCmPFEDTiiCJNMrAMKSGwsno-Mm8gTWTh_i-RVM5VEMUJGq8wfGthztUx2ytEXXOT_34SVSy1exUb_B2zoPGuNb1HFOgD063Msy2Z9_YuoOP9kHHn4FzL5tFZsL0VuxB7kyeYxOOpH0CHoeyEpiY_RmCB94EK1rx368JmMv95kYMFIGzbKfe-Q4g8B1ENqYjo4',
     isCustom: false
   },
   {
@@ -1441,8 +1442,9 @@ const DEFAULT_EVENTS = [
     month: 'NOV',
     day: '21',
     time: 'Thursday • 5:30 PM',
-    location: 'Chapel Hall & YouTube Live',
+    location: 'Main Sanctuary & YouTube Live',
     description: 'Refuel your soul midway through the week with unhurried acoustic praise, communion, and corporate intercession.',
+    imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDz2Kd0zjLqZXoB0rOFPb-RL_xRUvyAvOyNRJj1FYTfOQSm0CTJvKJknAoqRGDcHPf5EOIkxI9IIzFH2B8krETTf83BEVebbDRhHlb-sU_J4X45nnu4kmvOWGkIIt_2ANhaezdFrbWYOquDCPX2KqB2zJtHG9dB2ooLwVxNuxBloW_s2OtyHDHzt4FeSOig-9V7ks-81w33N12AqBKXhowsn3xzwDfy20S2HAWvZFlt0PZ_wGjGzOjH',
     isCustom: false
   },
   {
@@ -1454,8 +1456,9 @@ const DEFAULT_EVENTS = [
     month: 'DEC',
     day: '07',
     time: 'Dec 7–9 • All Day',
-    location: 'Camp Whispering Pines',
+    location: 'Grace Community Grounds, Borikiri',
     description: 'Igniting passion, creativity, and biblical conviction in the next generation. Games, bonfires, and real talk.',
+    imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuA580vNlMrrJ_SFY4U1G0a7ZOnHht982r3DFRaT226gbLYSp6sKGPG4IDr5gea03WavcztvWhneA9oSdvpHIHU0JAWcZiy2eZtOPutRT59LHmIbScWOSseziKYOKRlqOV6mUsN4-Nj6J1PzeKkzDcTlIVpHyDUgrmxvSuc9u_22q24xGCl8UlY_AvnWiYz6XoJG1pRVnRj5MMr5dk2_58W89kKDGrJaX53vcdTcGigIMgAs5NjjVMqH',
     isCustom: false
   },
   {
@@ -1469,6 +1472,7 @@ const DEFAULT_EVENTS = [
     time: 'Saturday • 9:00 AM',
     location: 'Community Center & Borikiri Neighborhood',
     description: 'Living out our authentic faith through practical love. Blessing families across Borikiri with care packages, discipleship, and intentional connection.',
+    imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDDYwYXBdLOnZRTIyrNVVHbdX-mo2gxf8n6-wcazXbisjBFl1in9CTWd8-9WkWkKPnewHbRxjGCZjkmJrvk9RiBnaybckb0a111U300zuelSnkWIycJTsgRubdiXqf2C5ledkL3zUNqc1Zc8RseTyxS_-Dr2K1Ogi0y-48hjnY4C7cmvcbhCd4geLpnWOHKm4ck0GzlAXNMb6GB85Ywu-WnVtkRgx8NMVsoFwSNMe3SlEClWV13Jk1H',
     isCustom: false
   }
 ];
@@ -1705,35 +1709,62 @@ function renderEvents() {
   const events = dataStore.getEvents();
 
   container.innerHTML = events.map(ev => `
-    <div class="bg-surface-card rounded-2xl p-6 border border-primary/10 custom-warm-shadow flex flex-col justify-between hover:-translate-y-1 transition-all duration-300 relative group">
-      ${ev.isCustom ? `
-        <span class="absolute top-3 right-3 text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-primary text-white shadow-xs">
-          New
-        </span>
-      ` : ''}
+    <div class="bg-surface-card rounded-3xl overflow-hidden border border-primary/10 custom-warm-shadow custom-hover-shadow flex flex-col justify-between group">
       <div>
-        <div class="flex items-center justify-between mb-4">
-          <div class="text-center px-3.5 py-2 bg-forest-tint rounded-xl border border-primary/20">
-            <span class="block text-xs font-bold text-primary uppercase tracking-wide">${ev.month}</span>
-            <span class="block text-xl font-headline font-bold text-forest-dark">${ev.day}</span>
+        <!-- DCC-Style Event Poster Header with Floating Calendar Badge -->
+        <div class="relative h-52 bg-forest-dark overflow-hidden">
+          <img 
+            src="${ev.imageUrl || 'https://lh3.googleusercontent.com/aida-public/AB6AXuDz2Kd0zjLqZXoB0rOFPb-RL_xRUvyAvOyNRJj1FYTfOQSm0CTJvKJknAoqRGDcHPf5EOIkxI9IIzFH2B8krETTf83BEVebbDRhHlb-sU_J4X45nnu4kmvOWGkIIt_2ANhaezdFrbWYOquDCPX2KqB2zJtHG9dB2ooLwVxNuxBloW_s2OtyHDHzt4FeSOig-9V7ks-81w33N12AqBKXhowsn3xzwDfy20S2HAWvZFlt0PZ_wGjGzOjH'}" 
+            alt="${ev.title}" 
+            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            onerror="this.onerror=null; this.src='https://lh3.googleusercontent.com/aida-public/AB6AXuDz2Kd0zjLqZXoB0rOFPb-RL_xRUvyAvOyNRJj1FYTfOQSm0CTJvKJknAoqRGDcHPf5EOIkxI9IIzFH2B8krETTf83BEVebbDRhHlb-sU_J4X45nnu4kmvOWGkIIt_2ANhaezdFrbWYOquDCPX2KqB2zJtHG9dB2ooLwVxNuxBloW_s2OtyHDHzt4FeSOig-9V7ks-81w33N12AqBKXhowsn3xzwDfy20S2HAWvZFlt0PZ_wGjGzOjH';">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+
+          <!-- Floating Calendar Date Badge (DCC Cue) -->
+          <div class="absolute top-3 left-3 bg-white/95 backdrop-blur-md rounded-2xl p-2 text-center shadow-lg border border-white/50 w-14">
+            <span class="block text-[10px] font-black uppercase tracking-wider text-primary">${ev.month}</span>
+            <span class="block text-2xl font-headline font-black text-slate-900 leading-none">${ev.day}</span>
           </div>
-          <span class="text-xs font-semibold px-2.5 py-1 rounded-full ${ev.categoryColor || 'bg-forest-tint text-primary'}">
-            ${ev.category}
+
+          <!-- Category Badge -->
+          <span class="absolute top-3 right-3 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-secondary text-forest-dark shadow-sm">
+            ${ev.category || 'Gathering'}
           </span>
+
+          ${ev.isCustom ? `
+            <span class="absolute bottom-3 left-3 text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-primary text-white shadow-xs">
+              Special Event
+            </span>
+          ` : ''}
         </div>
-        <h3 class="font-headline text-lg font-bold text-forest-dark mb-2 group-hover:text-primary transition-colors leading-snug">${ev.title}</h3>
-        <p class="text-xs text-on-surface-variant mb-4 leading-relaxed">${ev.description}</p>
-        <div class="space-y-1.5 text-xs text-on-surface-variant mb-6">
-          <div class="flex items-center gap-1.5"><span class="material-symbols-outlined text-sm text-primary">schedule</span> ${ev.time}</div>
-          <div class="flex items-center gap-1.5"><span class="material-symbols-outlined text-sm text-primary">location_on</span> ${ev.location}</div>
+
+        <!-- Event Body Details -->
+        <div class="p-6">
+          <h3 class="font-headline text-lg font-bold text-forest-dark mb-2.5 group-hover:text-primary transition-colors leading-snug">${ev.title}</h3>
+          <p class="text-xs text-on-surface-variant mb-4 leading-relaxed line-clamp-2">${ev.description}</p>
+          
+          <div class="space-y-2 text-xs text-on-surface-variant">
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-base text-primary shrink-0">schedule</span> 
+              <span class="font-medium text-slate-700">${ev.time}</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-base text-primary shrink-0">location_on</span> 
+              <span class="truncate font-medium text-slate-700">${ev.location}</span>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="space-y-2 pt-2 border-t border-primary/10">
-        <button class="w-full text-center py-2.5 px-3 rounded-full bg-primary text-white text-xs font-semibold hover:bg-forest-dark transition-colors cursor-pointer shadow-xs active:scale-[0.98]" onclick="window.registerEvent('${ev.id}')">
-          Register Free Pass
+
+      <!-- Action Buttons -->
+      <div class="p-6 pt-0 space-y-2">
+        <button class="w-full text-center py-2.5 px-4 rounded-full bg-primary text-white text-xs font-bold uppercase tracking-wide hover:bg-forest-dark transition-all cursor-pointer shadow-sm active:scale-[0.98] flex items-center justify-center gap-1.5" onclick="window.registerEvent('${ev.id}')">
+          <span class="material-symbols-outlined text-sm">confirmation_number</span>
+          <span>Register Free Pass</span>
         </button>
-        <button class="w-full text-center py-1.5 px-3 rounded-full border border-primary/20 hover:bg-forest-tint text-primary text-xs font-medium transition-colors flex items-center justify-center gap-1.5 cursor-pointer" onclick="window.downloadCustomICS('${ev.id}')">
-          <span class="material-symbols-outlined text-xs">event</span> Add to Calendar (.ics)
+        <button class="w-full text-center py-2 px-3 rounded-full border border-primary/20 hover:bg-forest-tint text-primary text-xs font-semibold transition-colors flex items-center justify-center gap-1.5 cursor-pointer" onclick="window.downloadCustomICS('${ev.id}')">
+          <span class="material-symbols-outlined text-xs">calendar_add_on</span> 
+          <span>Add to Calendar (.ics)</span>
         </button>
       </div>
     </div>
@@ -1838,7 +1869,11 @@ window.readFullArticle = function(articleId) {
   document.getElementById('reader-author').textContent = `By ${art.author} • ${art.date} • ${art.readTime || '5 min'}`;
   document.getElementById('reader-category').textContent = art.category;
   document.getElementById('reader-summary').textContent = art.summary;
-  document.getElementById('reader-content').textContent = art.content || art.summary;
+  
+  const readerContent = document.getElementById('reader-content');
+  if (readerContent) {
+    readerContent.innerHTML = art.content || art.summary || '';
+  }
   
   if (art.scripture) {
     document.getElementById('reader-scripture').textContent = `Scripture Anchor: ${art.scripture}`;
