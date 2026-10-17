@@ -171,6 +171,16 @@
 
       <form id="auth-form" class="space-y-4">
         <div>
+          <label for="admin-username-input" class="block text-xs font-semibold uppercase tracking-wider text-white/80 mb-1.5">Username (Optional for Root Admin)</label>
+          <input 
+            id="admin-username-input" 
+            type="text" 
+            autocomplete="username"
+            placeholder="e.g. admin, editor, intercessor, events"
+            class="w-full px-4 py-3 rounded-2xl bg-black/40 border border-white/20 text-white placeholder-white/40 text-sm focus:outline-none focus:border-secondary focus:ring-2 focus:ring-secondary/30 transition-all">
+        </div>
+
+        <div>
           <label for="admin-password-input" class="block text-xs font-semibold uppercase tracking-wider text-white/80 mb-1.5">Security Password</label>
           <div class="relative">
             <input 
@@ -178,7 +188,7 @@
               type="password" 
               required
               autocomplete="current-password"
-              placeholder="Enter admin password"
+              placeholder="Enter password (e.g. authenticbeliever)"
               class="w-full px-4 py-3 rounded-2xl bg-black/40 border border-white/20 text-white placeholder-white/40 text-sm focus:outline-none focus:border-secondary focus:ring-2 focus:ring-secondary/30 transition-all">
             <button 
               type="button" 
@@ -191,15 +201,26 @@
 
         <div id="auth-error" class="hidden text-xs text-rose-300 bg-rose-950/60 border border-rose-500/30 p-2.5 rounded-xl flex items-center gap-2">
           <span class="material-symbols-outlined text-base text-rose-400">error</span>
-          <span>Incorrect password. Please verify credentials.</span>
+          <span id="auth-error-msg">Incorrect credentials. Please verify your username or password.</span>
         </div>
 
         <button 
           type="submit" 
-          class="w-full py-3.5 rounded-2xl bg-secondary text-forest-dark font-bold text-xs uppercase tracking-wider hover:bg-yellow-400 transition-all shadow-lg active:scale-[0.99] flex items-center justify-center gap-2">
+          class="w-full py-3.5 rounded-2xl bg-secondary text-white font-bold text-xs uppercase tracking-wider hover:bg-[#38530E] transition-all shadow-lg active:scale-[0.99] flex items-center justify-center gap-2 cursor-pointer">
           <span class="material-symbols-outlined text-base">lock_open</span>
           <span>Access Admin Console</span>
         </button>
+
+        <!-- Quick Demo Role Switcher Help -->
+        <div class="pt-2 text-center text-[11px] text-white/60 space-y-1.5">
+          <p class="font-medium">Quick Role Sign-in:</p>
+          <div class="flex flex-wrap gap-1.5 justify-center">
+            <button type="button" onclick="window.quickFillLogin('admin', 'authenticbeliever')" class="px-2 py-0.5 rounded-md bg-white/10 hover:bg-white/20 text-white/90 transition-colors">Admin</button>
+            <button type="button" onclick="window.quickFillLogin('editor', 'editor123')" class="px-2 py-0.5 rounded-md bg-white/10 hover:bg-white/20 text-white/90 transition-colors">Editor</button>
+            <button type="button" onclick="window.quickFillLogin('intercessor', 'prayer123')" class="px-2 py-0.5 rounded-md bg-white/10 hover:bg-white/20 text-white/90 transition-colors">Pastoral</button>
+            <button type="button" onclick="window.quickFillLogin('events', 'events123')" class="px-2 py-0.5 rounded-md bg-white/10 hover:bg-white/20 text-white/90 transition-colors">Events</button>
+          </div>
+        </div>
       </form>
 
       <div class="mt-6 pt-6 border-t border-white/10 text-center">
@@ -258,16 +279,43 @@
 
           <button 
             type="button" 
+            data-tab="categories" 
+            class="tab-nav-btn w-full px-4 py-3 rounded-2xl flex items-center gap-3 text-white/70 hover:text-white hover:bg-white/5 transition-all">
+            <span class="material-symbols-outlined text-white/70">category</span>
+            <span>Categories</span>
+          </button>
+
+          <button 
+            type="button" 
             data-tab="messages" 
             class="tab-nav-btn w-full px-4 py-3 rounded-2xl flex items-center gap-3 text-white/70 hover:text-white hover:bg-white/5 transition-all">
             <span class="material-symbols-outlined text-white/70">mail</span>
             <span>Prayers & Inquiries</span>
           </button>
+
+          <button 
+            type="button" 
+            data-tab="users" 
+            class="tab-nav-btn w-full px-4 py-3 rounded-2xl flex items-center gap-3 text-white/70 hover:text-white hover:bg-white/5 transition-all">
+            <span class="material-symbols-outlined text-white/70">manage_accounts</span>
+            <span>Users & Access</span>
+          </button>
         </nav>
       </div>
 
       <!-- Sidebar Footer Controls -->
-      <div class="p-4 border-t border-white/10 space-y-2">
+      <div class="p-4 border-t border-white/10 space-y-3">
+        <!-- Active User Profile Card -->
+        <div class="p-3 rounded-2xl bg-white/5 border border-white/10 flex items-center gap-3">
+          <div id="sidebar-user-avatar" class="w-9 h-9 rounded-xl bg-secondary text-white font-bold text-xs flex items-center justify-center shrink-0">
+            PA
+          </div>
+          <div class="overflow-hidden flex-1">
+            <p id="sidebar-user-name" class="text-xs font-bold text-white truncate">Pastor Inaifie</p>
+            <span id="sidebar-user-role" class="inline-block text-[10px] font-semibold text-secondary uppercase tracking-wider truncate">Administrator</span>
+          </div>
+        </div>
+
         <a 
           href="/" 
           target="_blank"
@@ -282,7 +330,7 @@
         <button 
           type="button" 
           id="logout-btn" 
-          class="w-full px-4 py-2.5 rounded-xl bg-rose-950/40 hover:bg-rose-900/60 text-rose-300 text-xs font-semibold flex items-center justify-center gap-2 transition-colors">
+          class="w-full px-4 py-2.5 rounded-xl bg-rose-950/40 hover:bg-rose-900/60 text-rose-300 text-xs font-semibold flex items-center justify-center gap-2 transition-colors cursor-pointer">
           <span class="material-symbols-outlined text-sm">logout</span>
           <span>Log Out</span>
         </button>
@@ -365,6 +413,30 @@
                 <div>
                   <span class="block text-slate-900 font-bold">Site Announcement</span>
                   <span class="block text-[10px] text-slate-500 font-normal">Urgent banner or update notice</span>
+                </div>
+              </button>
+
+              <div class="my-1 border-t border-slate-100"></div>
+
+              <button 
+                type="button" 
+                onclick="window.switchTab('categories'); window.closeCreateDropdown();"
+                class="w-full px-3 py-2 text-left text-xs font-semibold text-slate-700 hover:bg-forest-tint hover:text-primary flex items-center gap-2.5 transition-colors">
+                <span class="material-symbols-outlined text-base text-purple-600">category</span>
+                <div>
+                  <span class="block text-slate-900 font-bold">New Category</span>
+                  <span class="block text-[10px] text-slate-500 font-normal">Articles or events taxonomy</span>
+                </div>
+              </button>
+
+              <button 
+                type="button" 
+                onclick="window.openUserModal(); window.closeCreateDropdown();"
+                class="w-full px-3 py-2 text-left text-xs font-semibold text-slate-700 hover:bg-forest-tint hover:text-primary flex items-center gap-2.5 transition-colors">
+                <span class="material-symbols-outlined text-base text-sky-600">person_add</span>
+                <div>
+                  <span class="block text-slate-900 font-bold">New Admin Account</span>
+                  <span class="block text-[10px] text-slate-500 font-normal">Add user with role permissions</span>
                 </div>
               </button>
             </div>
@@ -506,38 +578,166 @@
 
 
         <!-- =========================================================================
-             TAB 4: PRAYERS & INQUIRIES
+             TAB 4: PRAYERS & INQUIRIES (Dynamic with Auto-Removal on Done)
              ========================================================================= -->
         <section id="view-messages" class="tab-view hidden space-y-6">
-          <div class="bg-white p-6 rounded-3xl border border-slate-200/80 custom-shadow">
-            <h3 class="font-headline text-xl font-bold text-forest-dark">Pastoral Inquiries & Prayer Requests</h3>
-            <p class="text-xs text-slate-500">Review confidential prayer submissions and visitor notifications.</p>
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-3xl border border-slate-200/80 custom-shadow">
+            <div>
+              <h3 class="font-headline text-xl font-bold text-forest-dark">Pastoral Inquiries & Prayer Requests</h3>
+              <p class="text-xs text-slate-500">Confidential intercession queue. Items marked as done are automatically removed from active queue.</p>
+            </div>
+
+            <!-- Filter Queue Tabs -->
+            <div class="flex items-center gap-2 bg-slate-100 p-1.5 rounded-2xl self-start sm:self-auto text-xs font-semibold">
+              <button type="button" id="prayers-tab-active" onclick="window.switchPrayersFilter('active')" class="px-3.5 py-1.5 rounded-xl bg-white text-forest-dark shadow-xs transition-all">
+                <span>Active Queue</span> (<span id="count-active-prayers">0</span>)
+              </button>
+              <button type="button" id="prayers-tab-done" onclick="window.switchPrayersFilter('done')" class="px-3.5 py-1.5 rounded-xl text-slate-500 hover:text-slate-800 transition-all">
+                <span>Completed / Prayed</span> (<span id="count-done-prayers">0</span>)
+              </button>
+            </div>
           </div>
 
           <div id="admin-prayers-list" class="space-y-4">
-            <!-- Sample inquiries -->
-            <div class="bg-white p-5 rounded-2xl border border-slate-200/80 custom-shadow flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-              <div>
-                <div class="flex items-center gap-2 mb-1">
-                  <span class="text-xs font-bold text-forest-dark">Emeka Nwachukwu</span>
-                  <span class="text-[11px] px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 font-medium">Health & Healing</span>
-                  <span class="text-xs text-slate-400">2 hours ago</span>
+            <!-- Dynamically populated -->
+          </div>
+        </section>
+
+
+        <!-- =========================================================================
+             TAB 5: WORDPRESS-STYLE CATEGORIES MANAGEMENT
+             ========================================================================= -->
+        <section id="view-categories" class="tab-view hidden space-y-6">
+          <div class="bg-white p-6 rounded-3xl border border-slate-200/80 custom-shadow flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <h3 class="font-headline text-xl font-bold text-forest-dark">Content Categories & Taxonomies</h3>
+              <p class="text-xs text-slate-500">Create, rename, and manage categories across Articles, Events, and Sermons. Renaming cascades automatically.</p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+            <!-- Left: Add New Category Form (WordPress style) -->
+            <div class="lg:col-span-4 bg-white p-6 rounded-3xl border border-slate-200/80 custom-shadow space-y-4">
+              <h4 class="font-headline font-bold text-forest-dark text-base">Add New Category</h4>
+              <form id="new-category-form" class="space-y-3 text-xs sm:text-sm">
+                <div>
+                  <label class="block font-semibold text-slate-700 mb-1">Category Name *</label>
+                  <input id="cat-name-input" type="text" required placeholder="e.g. Missions & Evangelism" class="w-full h-10 px-3 rounded-xl border border-slate-300 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none">
                 </div>
-                <p class="text-xs text-slate-600">"Please pray for my mother recovering from surgery in Port Harcourt. Believing God for supernatural wholeness."</p>
-              </div>
-              <button class="px-3 py-1.5 rounded-lg border border-slate-200 text-slate-600 hover:text-primary text-xs font-semibold shrink-0" onclick="alert('Marked as prayed for by Pastoral Team.')">Mark Prayed For</button>
+                <div>
+                  <label class="block font-semibold text-slate-700 mb-1">Applies To / Section</label>
+                  <select id="cat-type-input" class="w-full h-10 px-3 rounded-xl border border-slate-300 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none">
+                    <option value="article">Articles & Blog</option>
+                    <option value="event">Church Gatherings & Events</option>
+                    <option value="all">Universal (All Sections)</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block font-semibold text-slate-700 mb-1">Color Style</label>
+                  <select id="cat-color-input" class="w-full h-10 px-3 rounded-xl border border-slate-300 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none">
+                    <option value="bg-emerald-100 text-emerald-800">Emerald Green Tint</option>
+                    <option value="bg-secondary text-white">Olive Green (Solid White Text)</option>
+                    <option value="bg-amber-100 text-amber-800">Warm Amber</option>
+                    <option value="bg-sky-100 text-sky-800">Sky Blue</option>
+                    <option value="bg-purple-100 text-purple-800">Royal Purple</option>
+                    <option value="bg-rose-100 text-rose-800">Rose Red</option>
+                  </select>
+                </div>
+                <button type="submit" class="w-full py-2.5 rounded-xl bg-primary text-white text-xs font-bold uppercase tracking-wider hover:bg-forest-dark transition-all flex items-center justify-center gap-1.5 shadow-sm cursor-pointer mt-2">
+                  <span class="material-symbols-outlined text-base">add_circle</span>
+                  <span>Add New Category</span>
+                </button>
+              </form>
             </div>
 
-            <div class="bg-white p-5 rounded-2xl border border-slate-200/80 custom-shadow flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-              <div>
-                <div class="flex items-center gap-2 mb-1">
-                  <span class="text-xs font-bold text-forest-dark">Grace & David Davies</span>
-                  <span class="text-[11px] px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-medium">Planned Sunday Visit</span>
-                  <span class="text-xs text-slate-400">Yesterday</span>
-                </div>
-                <p class="text-xs text-slate-600">"Looking forward to joining Sunday 1st Service at 7:30 AM with our two toddlers for GraceKids."</p>
+            <!-- Right: Categories Table -->
+            <div class="lg:col-span-8 bg-white rounded-3xl border border-slate-200/80 custom-shadow overflow-hidden">
+              <div class="p-4 sm:p-5 border-b border-slate-100 flex items-center justify-between">
+                <span class="font-bold text-forest-dark text-sm">All Categories (<span id="cat-total-count">0</span>)</span>
+                <span class="text-xs text-slate-400">WordPress Taxonomy Engine</span>
               </div>
-              <button class="px-3 py-1.5 rounded-lg border border-slate-200 text-slate-600 hover:text-primary text-xs font-semibold shrink-0" onclick="alert('Greeter team notified!')">Notify Welcome Team</button>
+              <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs sm:text-sm">
+                  <thead class="bg-slate-50 text-slate-500 font-semibold border-b border-slate-100 uppercase text-[11px] tracking-wider">
+                    <tr>
+                      <th class="p-3.5 sm:px-5">Name & Badge</th>
+                      <th class="p-3.5 sm:px-5">Scope</th>
+                      <th class="p-3.5 sm:px-5 text-center">Items</th>
+                      <th class="p-3.5 sm:px-5 text-right">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="categories-table-body" class="divide-y divide-slate-100">
+                    <!-- Injected dynamically -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- =========================================================================
+             TAB 6: USER ACCOUNTS & ROLE-BASED ACCESS CONTROL
+             ========================================================================= -->
+        <section id="view-users" class="tab-view hidden space-y-6">
+          <div class="bg-white p-6 rounded-3xl border border-slate-200/80 custom-shadow flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <h3 class="font-headline text-xl font-bold text-forest-dark">Administrative Accounts & Role Access</h3>
+              <p class="text-xs text-slate-500">Manage church leadership team logins and restrict access to authorized modules.</p>
+            </div>
+            <button 
+              type="button" 
+              onclick="window.openUserModal()" 
+              class="px-5 py-2.5 rounded-full bg-primary text-white text-xs font-bold uppercase tracking-wider hover:bg-forest-dark transition-all flex items-center gap-1.5 shadow-sm self-start sm:self-auto cursor-pointer">
+              <span class="material-symbols-outlined text-base">person_add</span>
+              <span>Add New Account</span>
+            </button>
+          </div>
+
+          <!-- Roles Permissions Summary Cards -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="bg-white p-4 rounded-2xl border border-slate-200/80 custom-shadow">
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-purple-100 text-purple-800">Super Admin</span>
+              <h4 class="font-bold text-forest-dark text-sm mt-1.5">Administrator</h4>
+              <p class="text-[11px] text-slate-500 mt-1">Full access to all events, articles, prayers, categories, and account permissions.</p>
+            </div>
+            <div class="bg-white p-4 rounded-2xl border border-slate-200/80 custom-shadow">
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-emerald-100 text-emerald-800">Editor</span>
+              <h4 class="font-bold text-forest-dark text-sm mt-1.5">Content Editor</h4>
+              <p class="text-[11px] text-slate-500 mt-1">Can manage devotionals, articles, gatherings, and categories. Excluded from confidential prayers & users.</p>
+            </div>
+            <div class="bg-white p-4 rounded-2xl border border-slate-200/80 custom-shadow">
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-sky-100 text-sky-800">Pastoral</span>
+              <h4 class="font-bold text-forest-dark text-sm mt-1.5">Intercessor</h4>
+              <p class="text-[11px] text-slate-500 mt-1">Access to pastoral prayers, prayer requests, and visitor inquiries. Cannot edit content or users.</p>
+            </div>
+            <div class="bg-white p-4 rounded-2xl border border-slate-200/80 custom-shadow">
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-amber-100 text-amber-800">Events</span>
+              <h4 class="font-bold text-forest-dark text-sm mt-1.5">Events Coordinator</h4>
+              <p class="text-[11px] text-slate-500 mt-1">Focused access strictly to scheduled encounters, retreats, and church gathering posters.</p>
+            </div>
+          </div>
+
+          <!-- Users Table -->
+          <div class="bg-white rounded-3xl border border-slate-200/80 custom-shadow overflow-hidden">
+            <div class="p-4 sm:p-5 border-b border-slate-100 flex items-center justify-between">
+              <span class="font-bold text-forest-dark text-sm">Active Administrator Accounts</span>
+              <span class="text-xs text-slate-400">Multi-Account RBAC Engine</span>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-xs sm:text-sm">
+                <thead class="bg-slate-50 text-slate-500 font-semibold border-b border-slate-100 uppercase text-[11px] tracking-wider">
+                  <tr>
+                    <th class="p-3.5 sm:px-5">Name & User</th>
+                    <th class="p-3.5 sm:px-5">Role Permission</th>
+                    <th class="p-3.5 sm:px-5">Assigned Email</th>
+                    <th class="p-3.5 sm:px-5 text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="users-table-body" class="divide-y divide-slate-100">
+                  <!-- Injected dynamically -->
+                </tbody>
+              </table>
             </div>
           </div>
         </section>
@@ -936,6 +1136,102 @@
     </div>
   </div>
 
+  <!-- =========================================================================
+       7. CATEGORY EDIT / RENAME MODAL
+       ========================================================================= -->
+  <div id="category-editor-modal" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-white rounded-3xl w-full max-w-md overflow-hidden shadow-2xl border border-slate-200 flex flex-col">
+      <div class="p-5 bg-forest-dark text-white flex items-center justify-between shrink-0">
+        <h4 id="category-modal-heading" class="font-headline text-lg font-bold">Rename Category</h4>
+        <button type="button" onclick="window.closeCategoryModal()" class="text-white/70 hover:text-white p-1">
+          <span class="material-symbols-outlined text-2xl">close</span>
+        </button>
+      </div>
+
+      <form id="category-editor-form" class="p-6 space-y-4 text-xs sm:text-sm">
+        <input type="hidden" id="category-edit-id">
+
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Category Title *</label>
+          <input id="category-edit-name" required type="text" placeholder="e.g. Kingdom Leadership" class="w-full h-11 px-3 rounded-xl border border-slate-300 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none">
+          <p class="text-[11px] text-slate-500 mt-1">Renaming will automatically cascade and update all existing articles and events assigned to this category.</p>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Color Style</label>
+          <select id="category-edit-color" class="w-full h-11 px-3 rounded-xl border border-slate-300 focus:border-primary outline-none">
+            <option value="bg-emerald-100 text-emerald-800">Emerald Green Tint</option>
+            <option value="bg-secondary text-white">Olive Green (Solid White Text)</option>
+            <option value="bg-amber-100 text-amber-800">Warm Amber</option>
+            <option value="bg-sky-100 text-sky-800">Sky Blue</option>
+            <option value="bg-purple-100 text-purple-800">Royal Purple</option>
+            <option value="bg-rose-100 text-rose-800">Rose Red</option>
+          </select>
+        </div>
+
+        <div class="pt-4 border-t border-slate-200 flex justify-end gap-3">
+          <button type="button" onclick="window.closeCategoryModal()" class="px-5 py-2.5 rounded-xl border border-slate-300 text-slate-600 hover:bg-slate-100 transition-colors font-semibold">Cancel</button>
+          <button type="submit" class="px-6 py-2.5 rounded-xl bg-primary text-white font-bold hover:bg-forest-dark transition-all shadow-sm">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- =========================================================================
+       8. USER ACCOUNT ADD / EDIT MODAL
+       ========================================================================= -->
+  <div id="user-editor-modal" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-white rounded-3xl w-full max-w-lg overflow-hidden shadow-2xl border border-slate-200 flex flex-col">
+      <div class="p-5 bg-forest-dark text-white flex items-center justify-between shrink-0">
+        <h4 id="user-modal-heading" class="font-headline text-lg font-bold">Add Administrator Account</h4>
+        <button type="button" onclick="window.closeUserModal()" class="text-white/70 hover:text-white p-1">
+          <span class="material-symbols-outlined text-2xl">close</span>
+        </button>
+      </div>
+
+      <form id="user-editor-form" class="p-6 space-y-4 text-xs sm:text-sm">
+        <input type="hidden" id="user-edit-id">
+
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Full Display Name *</label>
+          <input id="user-fullname" required type="text" placeholder="e.g. Deacon David" class="w-full h-11 px-3 rounded-xl border border-slate-300 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none">
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Username *</label>
+            <input id="user-username" required type="text" placeholder="e.g. events" class="w-full h-11 px-3 rounded-xl border border-slate-300 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none">
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Email Address</label>
+            <input id="user-email" type="email" placeholder="user@gracelife.org" class="w-full h-11 px-3 rounded-xl border border-slate-300 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none">
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Role & Access Level *</label>
+          <select id="user-role" class="w-full h-11 px-3 rounded-xl border border-slate-300 focus:border-primary outline-none">
+            <option value="editor">Content Editor (Articles, Events, Categories)</option>
+            <option value="pastoral">Pastoral Intercessor (Prayers & Inquiries)</option>
+            <option value="events">Events Coordinator (Events & Gatherings)</option>
+            <option value="superadmin">Administrator (Full Access)</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Account Password *</label>
+          <input id="user-password" required type="password" placeholder="Enter password" class="w-full h-11 px-3 rounded-xl border border-slate-300 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none">
+        </div>
+
+        <div class="pt-4 border-t border-slate-200 flex justify-end gap-3">
+          <button type="button" onclick="window.closeUserModal()" class="px-5 py-2.5 rounded-xl border border-slate-300 text-slate-600 hover:bg-slate-100 transition-colors font-semibold">Cancel</button>
+          <button type="submit" class="px-6 py-2.5 rounded-xl bg-primary text-white font-bold hover:bg-forest-dark transition-all shadow-sm">Save Account</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
 
   <!-- =========================================================================
        5. ADMIN APP SCRIPT & SHARED DATA STORE
@@ -1034,12 +1330,89 @@
       }
     ];
 
+    const DEFAULT_CATEGORIES = [
+      { id: 'cat-1', name: 'Devotional', type: 'article', color: 'bg-emerald-100 text-emerald-800' },
+      { id: 'cat-2', name: 'Life Stories', type: 'article', color: 'bg-amber-100 text-amber-800' },
+      { id: 'cat-3', name: 'Leadership', type: 'article', color: 'bg-indigo-100 text-indigo-800' },
+      { id: 'cat-4', name: 'Faith & Grace', type: 'article', color: 'bg-teal-100 text-teal-800' },
+      { id: 'cat-5', name: 'Flagship', type: 'event', color: 'bg-secondary text-white' },
+      { id: 'cat-6', name: 'Midweek', type: 'event', color: 'bg-sky-100 text-[#0288D1]' },
+      { id: 'cat-7', name: 'Youth', type: 'event', color: 'bg-purple-100 text-purple-800' },
+      { id: 'cat-8', name: 'Outreach', type: 'event', color: 'bg-forest-tint text-primary' }
+    ];
+
+    const DEFAULT_USERS = [
+      {
+        id: 'usr-1',
+        username: 'admin',
+        displayName: 'Pastor Inaifie Allaputa',
+        email: 'pastor@gracelife.org',
+        role: 'superadmin',
+        roleName: 'Administrator (Full Access)',
+        password: 'authenticbeliever'
+      },
+      {
+        id: 'usr-2',
+        username: 'editor',
+        displayName: 'Sister Blessing (Editorial)',
+        email: 'editor@gracelife.org',
+        role: 'editor',
+        roleName: 'Content Editor (Articles & Media)',
+        password: 'editor123'
+      },
+      {
+        id: 'usr-3',
+        username: 'intercessor',
+        displayName: 'Elder Marcus (Pastoral Care)',
+        email: 'pastoral@gracelife.org',
+        role: 'pastoral',
+        roleName: 'Pastoral Care & Intercession',
+        password: 'prayer123'
+      },
+      {
+        id: 'usr-4',
+        username: 'events',
+        displayName: 'Deacon David (Events Team)',
+        email: 'events@gracelife.org',
+        role: 'events',
+        roleName: 'Events Coordinator',
+        password: 'events123'
+      }
+    ];
+
+    const DEFAULT_PRAYERS = [
+      {
+        id: 'prr-1',
+        type: 'prayer_request',
+        name: 'Emeka Nwachukwu',
+        category: 'Health & Healing',
+        message: 'Please pray for my mother recovering from surgery in Port Harcourt. Believing God for supernatural wholeness.',
+        date: 'Oct 17, 2024',
+        timeAgo: '2 hours ago',
+        status: 'pending'
+      },
+      {
+        id: 'inq-1',
+        type: 'visit_inquiry',
+        name: 'Grace & David Davies',
+        category: 'Planned Visit: Sunday 1st Service',
+        message: 'Looking forward to joining Sunday 1st Service at 7:30 AM with our two toddlers for GraceKids check-in.',
+        date: 'Oct 16, 2024',
+        timeAgo: 'Yesterday',
+        status: 'pending'
+      }
+    ];
+
     class ChurchStore {
       constructor() {
         this.EVENTS_KEY = 'glc_events_v3';
         this.ARTICLES_KEY = 'glc_articles_v3';
+        this.CATEGORIES_KEY = 'glc_categories_v1';
+        this.USERS_KEY = 'glc_admin_users_v1';
+        this.PRAYERS_KEY = 'glc_prayers_v1';
       }
 
+      // --- EVENTS ---
       getEvents() {
         try {
           const d = localStorage.getItem(this.EVENTS_KEY);
@@ -1069,6 +1442,7 @@
         return events;
       }
 
+      // --- ARTICLES ---
       getArticles() {
         try {
           const d = localStorage.getItem(this.ARTICLES_KEY);
@@ -1097,26 +1471,238 @@
         this.saveArticles(articles);
         return articles;
       }
+
+      // --- CATEGORIES (WordPress-style CRUD with cascade) ---
+      getCategories() {
+        try {
+          const d = localStorage.getItem(this.CATEGORIES_KEY);
+          return d ? JSON.parse(d) : DEFAULT_CATEGORIES;
+        } catch(e) { return DEFAULT_CATEGORIES; }
+      }
+
+      saveCategories(list) {
+        localStorage.setItem(this.CATEGORIES_KEY, JSON.stringify(list));
+      }
+
+      addCategory(cat) {
+        let cats = this.getCategories();
+        cats.unshift(cat);
+        this.saveCategories(cats);
+        return cats;
+      }
+
+      renameCategory(id, newName, newColor) {
+        let cats = this.getCategories();
+        const cat = cats.find(c => c.id === id);
+        if (!cat) return cats;
+        const oldName = cat.name;
+        cat.name = newName.trim();
+        if (newColor) cat.color = newColor;
+        this.saveCategories(cats);
+
+        // Cascade rename to articles
+        let articles = this.getArticles();
+        let articlesChanged = false;
+        articles.forEach(a => {
+          if (a.category === oldName) {
+            a.category = cat.name;
+            articlesChanged = true;
+          }
+        });
+        if (articlesChanged) this.saveArticles(articles);
+
+        // Cascade rename to events
+        let events = this.getEvents();
+        let eventsChanged = false;
+        events.forEach(e => {
+          if (e.category === oldName) {
+            e.category = cat.name;
+            eventsChanged = true;
+          }
+        });
+        if (eventsChanged) this.saveEvents(events);
+
+        return cats;
+      }
+
+      deleteCategory(id) {
+        let cats = this.getCategories();
+        const cat = cats.find(c => c.id === id);
+        if (!cat) return cats;
+        const oldName = cat.name;
+        cats = cats.filter(c => c.id !== id);
+        this.saveCategories(cats);
+
+        // Reassign affected items to 'General'
+        let articles = this.getArticles();
+        let articlesChanged = false;
+        articles.forEach(a => {
+          if (a.category === oldName) {
+            a.category = 'General';
+            articlesChanged = true;
+          }
+        });
+        if (articlesChanged) this.saveArticles(articles);
+
+        let events = this.getEvents();
+        let eventsChanged = false;
+        events.forEach(e => {
+          if (e.category === oldName) {
+            e.category = 'Gathering';
+            eventsChanged = true;
+          }
+        });
+        if (eventsChanged) this.saveEvents(events);
+
+        return cats;
+      }
+
+      // --- USERS & RBAC ---
+      getUsers() {
+        try {
+          const d = localStorage.getItem(this.USERS_KEY);
+          return d ? JSON.parse(d) : DEFAULT_USERS;
+        } catch(e) { return DEFAULT_USERS; }
+      }
+
+      saveUsers(list) {
+        localStorage.setItem(this.USERS_KEY, JSON.stringify(list));
+      }
+
+      addOrUpdateUser(user) {
+        let users = this.getUsers();
+        const idx = users.findIndex(u => u.id === user.id || u.username === user.username);
+        if (idx >= 0) {
+          users[idx] = { ...users[idx], ...user };
+        } else {
+          users.push(user);
+        }
+        this.saveUsers(users);
+        return users;
+      }
+
+      deleteUser(id) {
+        let users = this.getUsers().filter(u => u.id !== id && u.username !== 'admin');
+        this.saveUsers(users);
+        return users;
+      }
+
+      authenticate(username, password) {
+        const users = this.getUsers();
+        const trimmedPwd = (password || '').trim();
+        const trimmedUser = (username || '').trim().toLowerCase();
+
+        // 1. Direct password match with master pass 'authenticbeliever'
+        if (trimmedPwd === 'authenticbeliever' && (!trimmedUser || trimmedUser === 'admin')) {
+          return users.find(u => u.username === 'admin') || DEFAULT_USERS[0];
+        }
+
+        // 2. Specific username and password match
+        const found = users.find(u => 
+          (u.username.toLowerCase() === trimmedUser || u.email.toLowerCase() === trimmedUser) && 
+          u.password === trimmedPwd
+        );
+
+        return found || null;
+      }
+
+      // --- PRAYERS & INQUIRIES ---
+      getPrayers() {
+        try {
+          const d = localStorage.getItem(this.PRAYERS_KEY);
+          return d ? JSON.parse(d) : DEFAULT_PRAYERS;
+        } catch(e) { return DEFAULT_PRAYERS; }
+      }
+
+      savePrayers(list) {
+        localStorage.setItem(this.PRAYERS_KEY, JSON.stringify(list));
+      }
+
+      markPrayerDone(id) {
+        let list = this.getPrayers();
+        const item = list.find(p => p.id === id);
+        if (item) {
+          item.status = 'done';
+          item.completedAt = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        }
+        this.savePrayers(list);
+        return list;
+      }
+
+      deletePrayer(id) {
+        let list = this.getPrayers().filter(p => p.id !== id);
+        this.savePrayers(list);
+        return list;
+      }
     }
 
     const store = new ChurchStore();
 
     // =========================================================================
-    // AUTHENTICATION LOGIC (Password: authenticbeliever)
+    // AUTHENTICATION & MULTI-ACCOUNT ROLE-BASED ACCESS CONTROL (RBAC)
     // =========================================================================
     const AUTH_KEY = 'glc_admin_auth_status';
+    const ACTIVE_USER_KEY = 'glc_active_user';
     const authGate = document.getElementById('auth-gate');
     const dashboardApp = document.getElementById('dashboard-app');
     const authForm = document.getElementById('auth-form');
+    const usernameInput = document.getElementById('admin-username-input');
     const passwordInput = document.getElementById('admin-password-input');
     const authError = document.getElementById('auth-error');
+    const authErrorMsg = document.getElementById('auth-error-msg');
     const togglePwdBtn = document.getElementById('toggle-pwd-btn');
     const logoutBtn = document.getElementById('logout-btn');
+
+    // Sidebar active user elements
+    const sidebarAvatar = document.getElementById('sidebar-user-avatar');
+    const sidebarName = document.getElementById('sidebar-user-name');
+    const sidebarRole = document.getElementById('sidebar-user-role');
+
+    // Role-Based Permissions Map
+    const ROLE_PERMISSIONS = {
+      superadmin: ['overview', 'events', 'articles', 'categories', 'messages', 'users'],
+      editor: ['overview', 'events', 'articles', 'categories'],
+      pastoral: ['overview', 'messages'],
+      events: ['overview', 'events']
+    };
+
+    function getActiveUser() {
+      try {
+        const u = sessionStorage.getItem(ACTIVE_USER_KEY);
+        return u ? JSON.parse(u) : DEFAULT_USERS[0];
+      } catch(e) {
+        return DEFAULT_USERS[0];
+      }
+    }
 
     function checkAuth() {
       if (sessionStorage.getItem(AUTH_KEY) === 'authenticated') {
         authGate.classList.add('hidden');
         dashboardApp.classList.remove('hidden');
+
+        // Apply RBAC UI adaptations
+        const activeUser = getActiveUser();
+        const initials = activeUser.displayName ? activeUser.displayName.split(' ').map(n => n[0]).slice(0, 2).join('').toUpperCase() : 'GL';
+        if (sidebarAvatar) sidebarAvatar.textContent = initials;
+        if (sidebarName) sidebarName.textContent = activeUser.displayName || activeUser.username;
+        if (sidebarRole) sidebarRole.textContent = activeUser.roleName || activeUser.role.toUpperCase();
+
+        const allowedTabs = ROLE_PERMISSIONS[activeUser.role] || ROLE_PERMISSIONS.editor;
+        tabBtns.forEach(btn => {
+          const tab = btn.getAttribute('data-tab');
+          if (allowedTabs.includes(tab)) {
+            btn.classList.remove('hidden');
+          } else {
+            btn.classList.add('hidden');
+          }
+        });
+
+        // If current tab is restricted, switch to first allowed tab
+        const currentActiveBtn = Array.from(tabBtns).find(b => b.classList.contains('bg-white/10') && !b.classList.contains('hidden'));
+        if (!currentActiveBtn && allowedTabs.length > 0) {
+          window.switchTab(allowedTabs[0]);
+        }
+
         renderDashboard();
       } else {
         authGate.classList.remove('hidden');
@@ -1125,16 +1711,28 @@
       }
     }
 
+    window.quickFillLogin = function(u, p) {
+      if (usernameInput) usernameInput.value = u;
+      if (passwordInput) passwordInput.value = p;
+      authForm.dispatchEvent(new Event('submit'));
+    };
+
     authForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      const val = passwordInput.value.trim();
-      if (val === 'authenticbeliever') {
+      const userVal = usernameInput ? usernameInput.value.trim() : '';
+      const pwdVal = passwordInput.value.trim();
+
+      const user = store.authenticate(userVal, pwdVal);
+      if (user) {
         sessionStorage.setItem(AUTH_KEY, 'authenticated');
+        sessionStorage.setItem(ACTIVE_USER_KEY, JSON.stringify(user));
         authError.classList.add('hidden');
         passwordInput.value = '';
+        if (usernameInput) usernameInput.value = '';
         checkAuth();
       } else {
         authError.classList.remove('hidden');
+        authErrorMsg.textContent = 'Invalid credentials. Please verify your username and password.';
         passwordInput.classList.add('ring-2', 'ring-rose-500');
         setTimeout(() => passwordInput.classList.remove('ring-2', 'ring-rose-500'), 1500);
       }
@@ -1149,6 +1747,7 @@
     logoutBtn.addEventListener('click', () => {
       if (confirm('Are you sure you want to log out of the admin console?')) {
         sessionStorage.removeItem(AUTH_KEY);
+        sessionStorage.removeItem(ACTIVE_USER_KEY);
         checkAuth();
       }
     });
@@ -1161,6 +1760,14 @@
     const viewTitle = document.getElementById('current-view-title');
 
     window.switchTab = function(tabName) {
+      const activeUser = getActiveUser();
+      const allowedTabs = ROLE_PERMISSIONS[activeUser.role] || ROLE_PERMISSIONS.editor;
+
+      // Restrict unauthorized direct access
+      if (!allowedTabs.includes(tabName)) {
+        tabName = allowedTabs[0] || 'overview';
+      }
+
       tabBtns.forEach(btn => {
         if (btn.getAttribute('data-tab') === tabName) {
           btn.className = 'tab-nav-btn w-full px-4 py-3 rounded-2xl flex items-center gap-3 bg-white/10 text-white font-semibold transition-all';
@@ -1183,7 +1790,9 @@
         overview: 'Overview & Metrics',
         events: 'Events & Gatherings',
         articles: "Articles, Sermons & Pastor's Desk",
-        messages: 'Pastoral Prayers & Inquiries'
+        categories: 'Content Categories & Taxonomies',
+        messages: 'Pastoral Prayers & Inquiries',
+        users: 'Administrative Accounts & Role Permissions'
       };
       if (viewTitle) viewTitle.textContent = titles[tabName] || 'Admin Console';
     };
@@ -1193,50 +1802,65 @@
     });
 
     // =========================================================================
-    // RENDER DASHBOARD & LISTS
+    // RENDER DASHBOARD & STATS SYNCHRONIZATION
     // =========================================================================
     function renderDashboard() {
       const events = store.getEvents();
       const articles = store.getArticles();
+      const prayers = store.getPrayers();
+      const activePrayers = prayers.filter(p => p.status !== 'done');
 
-      // Stats
+      // Live synchronized stats matching actual items
       document.getElementById('stat-events-count').textContent = events.length;
       document.getElementById('stat-articles-count').textContent = articles.length;
+      
+      const statPrayersEl = document.getElementById('stat-prayers-count');
+      if (statPrayersEl) {
+        statPrayersEl.textContent = activePrayers.length;
+      }
 
       // Overview Previews
       const ovEvents = document.getElementById('overview-events-preview');
-      ovEvents.innerHTML = events.slice(0, 4).map(e => `
-        <div class="py-3 flex items-center justify-between gap-3">
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-forest-tint text-primary font-bold text-xs flex flex-col items-center justify-center shrink-0">
-              <span class="text-[9px] uppercase">${e.month}</span>
-              <span class="text-sm leading-none">${e.day}</span>
+      if (ovEvents) {
+        ovEvents.innerHTML = events.slice(0, 4).map(e => `
+          <div class="py-3 flex items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-forest-tint text-primary font-bold text-xs flex flex-col items-center justify-center shrink-0">
+                <span class="text-[9px] uppercase">${e.month}</span>
+                <span class="text-sm leading-none">${e.day}</span>
+              </div>
+              <div>
+                <p class="font-bold text-forest-dark line-clamp-1">${e.title}</p>
+                <p class="text-xs text-slate-500">${e.time} • ${e.location}</p>
+              </div>
             </div>
-            <div>
-              <p class="font-bold text-forest-dark line-clamp-1">${e.title}</p>
-              <p class="text-xs text-slate-500">${e.time} • ${e.location}</p>
-            </div>
+            <button class="text-xs text-primary font-semibold hover:underline" onclick="window.editEvent('${e.id}')">Edit</button>
           </div>
-          <button class="text-xs text-primary font-semibold hover:underline" onclick="window.editEvent('${e.id}')">Edit</button>
-        </div>
-      `).join('');
+        `).join('');
+      }
 
       const ovArticles = document.getElementById('overview-articles-preview');
-      ovArticles.innerHTML = articles.slice(0, 4).map(a => `
-        <div class="py-3 flex items-center justify-between gap-3">
-          <div class="flex items-center gap-3">
-            <img src="${a.imageUrl || '/assets/logo.png'}" class="w-10 h-10 rounded-xl object-cover shrink-0 bg-slate-100">
-            <div>
-              <p class="font-bold text-forest-dark line-clamp-1">${a.title}</p>
-              <p class="text-xs text-slate-500">By ${a.author} • ${a.date}</p>
+      if (ovArticles) {
+        ovArticles.innerHTML = articles.slice(0, 4).map(a => `
+          <div class="py-3 flex items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+              <img src="${a.imageUrl || '/assets/logo.png'}" class="w-10 h-10 rounded-xl object-cover shrink-0 bg-slate-100">
+              <div>
+                <p class="font-bold text-forest-dark line-clamp-1">${a.title}</p>
+                <p class="text-xs text-slate-500">By ${a.author} • ${a.date}</p>
+              </div>
             </div>
+            <button class="text-xs text-primary font-semibold hover:underline" onclick="window.editArticle('${a.id}')">Edit</button>
           </div>
-          <button class="text-xs text-primary font-semibold hover:underline" onclick="window.editArticle('${a.id}')">Edit</button>
-        </div>
-      `).join('');
+        `).join('');
+      }
 
       renderEventsList();
       renderArticlesList();
+      renderCategoriesList();
+      renderUsersList();
+      renderPrayersList();
+      populateCategorySelects();
     }
 
     // =========================================================================
@@ -1781,6 +2405,415 @@
       closeArticleModal();
       renderDashboard();
     });
+
+    // =========================================================================
+    // CATEGORIES MANAGEMENT (WordPress-style CRUD with Cascade)
+    // =========================================================================
+    function populateCategorySelects() {
+      const categories = store.getCategories();
+      const eventCatSelect = document.getElementById('event-category');
+      const articleCatSelect = document.getElementById('article-category');
+
+      if (eventCatSelect) {
+        const curEventVal = eventCatSelect.value;
+        const eventCats = categories.filter(c => c.type === 'event' || c.type === 'all');
+        eventCatSelect.innerHTML = eventCats.map(c => `
+          <option value="${c.name}">${c.name}</option>
+        `).join('');
+        if (curEventVal && eventCats.some(c => c.name === curEventVal)) {
+          eventCatSelect.value = curEventVal;
+        }
+      }
+
+      if (articleCatSelect) {
+        const curArtVal = articleCatSelect.value;
+        const artCats = categories.filter(c => c.type === 'article' || c.type === 'all');
+        articleCatSelect.innerHTML = artCats.map(c => `
+          <option value="${c.name}">${c.name}</option>
+        `).join('');
+        if (curArtVal && artCats.some(c => c.name === curArtVal)) {
+          articleCatSelect.value = curArtVal;
+        }
+      }
+    }
+
+    function renderCategoriesList() {
+      const tbody = document.getElementById('categories-table-body');
+      const totalCountEl = document.getElementById('cat-total-count');
+      if (!tbody) return;
+
+      const categories = store.getCategories();
+      const articles = store.getArticles();
+      const events = store.getEvents();
+
+      if (totalCountEl) totalCountEl.textContent = categories.length;
+
+      tbody.innerHTML = categories.map(cat => {
+        // Count items using this category
+        const artCount = articles.filter(a => a.category === cat.name).length;
+        const evCount = events.filter(e => e.category === cat.name).length;
+        const totalUsage = artCount + evCount;
+
+        const scopeLabel = cat.type === 'article' ? 'Articles & Blog' : (cat.type === 'event' ? 'Events & Gatherings' : 'Universal');
+
+        return `
+          <tr class="hover:bg-slate-50/80 transition-colors">
+            <td class="p-3.5 sm:px-5">
+              <div class="flex items-center gap-2.5">
+                <span class="inline-block px-2.5 py-1 rounded-full text-xs font-bold ${cat.color || 'bg-slate-100 text-slate-800'} shadow-2xs">
+                  ${cat.name}
+                </span>
+              </div>
+            </td>
+            <td class="p-3.5 sm:px-5 text-slate-500 font-medium">
+              ${scopeLabel}
+            </td>
+            <td class="p-3.5 sm:px-5 text-center font-bold text-forest-dark">
+              ${totalUsage}
+            </td>
+            <td class="p-3.5 sm:px-5 text-right">
+              <div class="flex items-center justify-end gap-2">
+                <button 
+                  type="button" 
+                  onclick="window.openCategoryModal('${cat.id}')" 
+                  class="px-2.5 py-1 rounded-lg bg-forest-tint text-primary hover:bg-emerald-100 text-xs font-semibold flex items-center gap-1 transition-colors">
+                  <span class="material-symbols-outlined text-sm">edit</span>
+                  <span>Rename</span>
+                </button>
+                <button 
+                  type="button" 
+                  onclick="window.deleteCategory('${cat.id}')" 
+                  class="p-1 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-colors" 
+                  title="Delete Category">
+                  <span class="material-symbols-outlined text-sm">delete</span>
+                </button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    const newCategoryForm = document.getElementById('new-category-form');
+    if (newCategoryForm) {
+      newCategoryForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = document.getElementById('cat-name-input').value.trim();
+        const type = document.getElementById('cat-type-input').value;
+        const color = document.getElementById('cat-color-input').value;
+
+        if (!name) return;
+
+        store.addCategory({
+          id: 'cat-' + Date.now(),
+          name,
+          type,
+          color
+        });
+
+        newCategoryForm.reset();
+        renderDashboard();
+        alert(`Category "${name}" created successfully!`);
+      });
+    }
+
+    const categoryModal = document.getElementById('category-editor-modal');
+    const categoryForm = document.getElementById('category-editor-form');
+
+    window.openCategoryModal = function(id) {
+      const cat = store.getCategories().find(c => c.id === id);
+      if (!cat) return;
+      document.getElementById('category-edit-id').value = cat.id;
+      document.getElementById('category-edit-name').value = cat.name;
+      document.getElementById('category-edit-color').value = cat.color || 'bg-emerald-100 text-emerald-800';
+
+      categoryModal.classList.remove('hidden');
+      categoryModal.classList.add('flex');
+    };
+
+    window.closeCategoryModal = function() {
+      categoryModal.classList.add('hidden');
+      categoryModal.classList.remove('flex');
+    };
+
+    categoryForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const id = document.getElementById('category-edit-id').value;
+      const newName = document.getElementById('category-edit-name').value.trim();
+      const newColor = document.getElementById('category-edit-color').value;
+
+      if (id && newName) {
+        store.renameCategory(id, newName, newColor);
+        window.closeCategoryModal();
+        renderDashboard();
+        alert(`Category renamed to "${newName}". All associated articles and events have been updated automatically!`);
+      }
+    });
+
+    window.deleteCategory = function(id) {
+      const cat = store.getCategories().find(c => c.id === id);
+      if (!cat) return;
+
+      if (confirm(`Are you sure you want to delete the category "${cat.name}"? Existing articles and events assigned to this category will safely fall back to General/Gathering.`)) {
+        store.deleteCategory(id);
+        renderDashboard();
+      }
+    };
+
+
+    // =========================================================================
+    // USERS & ROLE-BASED ACCESS CONTROL (RBAC) CRUD
+    // =========================================================================
+    function renderUsersList() {
+      const tbody = document.getElementById('users-table-body');
+      if (!tbody) return;
+
+      const users = store.getUsers();
+      const activeUser = getActiveUser();
+
+      const roleBadgeColors = {
+        superadmin: 'bg-purple-100 text-purple-800 border-purple-200',
+        editor: 'bg-emerald-100 text-emerald-800 border-emerald-200',
+        pastoral: 'bg-sky-100 text-sky-800 border-sky-200',
+        events: 'bg-amber-100 text-amber-800 border-amber-200'
+      };
+
+      tbody.innerHTML = users.map(u => {
+        const initials = u.displayName ? u.displayName.split(' ').map(n => n[0]).slice(0, 2).join('').toUpperCase() : 'US';
+        const isSelf = u.id === activeUser.id || u.username === activeUser.username;
+        const isRootAdmin = u.username === 'admin';
+
+        return `
+          <tr class="hover:bg-slate-50/80 transition-colors">
+            <td class="p-3.5 sm:px-5">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-xl bg-forest-tint text-primary font-bold text-xs flex items-center justify-center shrink-0">
+                  ${initials}
+                </div>
+                <div>
+                  <p class="font-bold text-forest-dark">${u.displayName || u.username} ${isSelf ? '<span class="text-[10px] text-emerald-600 font-semibold">(You)</span>' : ''}</p>
+                  <p class="text-xs text-slate-400">@${u.username}</p>
+                </div>
+              </div>
+            </td>
+            <td class="p-3.5 sm:px-5">
+              <span class="inline-block px-2.5 py-0.5 rounded-full text-xs font-semibold border ${roleBadgeColors[u.role] || 'bg-slate-100 text-slate-700'}">
+                ${u.roleName || u.role}
+              </span>
+            </td>
+            <td class="p-3.5 sm:px-5 text-slate-500 font-medium">
+              ${u.email || '—'}
+            </td>
+            <td class="p-3.5 sm:px-5 text-right">
+              <div class="flex items-center justify-end gap-2">
+                <button 
+                  type="button" 
+                  onclick="window.openUserModal('${u.id}')" 
+                  class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold transition-colors">
+                  Edit
+                </button>
+                ${!isRootAdmin && !isSelf ? `
+                  <button 
+                    type="button" 
+                    onclick="window.deleteUser('${u.id}')" 
+                    class="p-1 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-colors" 
+                    title="Delete Account">
+                    <span class="material-symbols-outlined text-sm">delete</span>
+                  </button>
+                ` : `
+                  <span class="text-[10px] text-slate-400 italic px-1">Protected</span>
+                `}
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    const userModal = document.getElementById('user-editor-modal');
+    const userForm = document.getElementById('user-editor-form');
+
+    window.openUserModal = function(id = null) {
+      userForm.reset();
+      const heading = document.getElementById('user-modal-heading');
+
+      if (id) {
+        const u = store.getUsers().find(item => item.id === id);
+        if (!u) return;
+        heading.textContent = 'Edit Administrator Account';
+        document.getElementById('user-edit-id').value = u.id;
+        document.getElementById('user-fullname').value = u.displayName || '';
+        document.getElementById('user-username').value = u.username;
+        document.getElementById('user-username').disabled = (u.username === 'admin');
+        document.getElementById('user-email').value = u.email || '';
+        document.getElementById('user-role').value = u.role;
+        document.getElementById('user-password').value = u.password || '';
+      } else {
+        heading.textContent = 'Add Administrator Account';
+        document.getElementById('user-edit-id').value = '';
+        document.getElementById('user-username').disabled = false;
+      }
+
+      userModal.classList.remove('hidden');
+      userModal.classList.add('flex');
+    };
+
+    window.closeUserModal = function() {
+      userModal.classList.add('hidden');
+      userModal.classList.remove('flex');
+    };
+
+    userForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const id = document.getElementById('user-edit-id').value || ('usr-' + Date.now());
+      const role = document.getElementById('user-role').value;
+      const roleNames = {
+        superadmin: 'Administrator (Full Access)',
+        editor: 'Content Editor (Articles & Media)',
+        pastoral: 'Pastoral Care & Intercession',
+        events: 'Events Coordinator'
+      };
+
+      const userObj = {
+        id,
+        username: document.getElementById('user-username').value.trim().toLowerCase(),
+        displayName: document.getElementById('user-fullname').value.trim(),
+        email: document.getElementById('user-email').value.trim(),
+        role,
+        roleName: roleNames[role] || role,
+        password: document.getElementById('user-password').value.trim()
+      };
+
+      store.addOrUpdateUser(userObj);
+      window.closeUserModal();
+      renderDashboard();
+      alert(`Account for "${userObj.displayName}" saved successfully!`);
+    });
+
+    window.deleteUser = function(id) {
+      const u = store.getUsers().find(item => item.id === id);
+      if (!u) return;
+
+      if (confirm(`Are you sure you want to delete account for "${u.displayName || u.username}"?`)) {
+        store.deleteUser(id);
+        renderDashboard();
+      }
+    };
+
+
+    // =========================================================================
+    // PRAYERS & INQUIRIES QUEUE (Dynamic & Auto-Removal on Done)
+    // =========================================================================
+    let currentPrayersFilter = 'active'; // 'active' | 'done'
+
+    window.switchPrayersFilter = function(filter) {
+      currentPrayersFilter = filter;
+      const activeBtn = document.getElementById('prayers-tab-active');
+      const doneBtn = document.getElementById('prayers-tab-done');
+
+      if (filter === 'active') {
+        activeBtn.className = 'px-3.5 py-1.5 rounded-xl bg-white text-forest-dark shadow-xs transition-all';
+        doneBtn.className = 'px-3.5 py-1.5 rounded-xl text-slate-500 hover:text-slate-800 transition-all';
+      } else {
+        doneBtn.className = 'px-3.5 py-1.5 rounded-xl bg-white text-forest-dark shadow-xs transition-all';
+        activeBtn.className = 'px-3.5 py-1.5 rounded-xl text-slate-500 hover:text-slate-800 transition-all';
+      }
+
+      renderPrayersList();
+    };
+
+    function renderPrayersList() {
+      const container = document.getElementById('admin-prayers-list');
+      const countActiveEl = document.getElementById('count-active-prayers');
+      const countDoneEl = document.getElementById('count-done-prayers');
+      if (!container) return;
+
+      const prayers = store.getPrayers();
+      const activePrayers = prayers.filter(p => p.status !== 'done');
+      const donePrayers = prayers.filter(p => p.status === 'done');
+
+      if (countActiveEl) countActiveEl.textContent = activePrayers.length;
+      if (countDoneEl) countDoneEl.textContent = donePrayers.length;
+
+      const displayedList = currentPrayersFilter === 'active' ? activePrayers : donePrayers;
+
+      if (displayedList.length === 0) {
+        container.innerHTML = `
+          <div class="bg-white p-12 rounded-3xl border border-slate-200/80 custom-shadow text-center space-y-3">
+            <div class="w-16 h-16 rounded-full bg-emerald-50 text-primary mx-auto flex items-center justify-center">
+              <span class="material-symbols-outlined text-3xl">task_alt</span>
+            </div>
+            <h4 class="font-headline font-bold text-forest-dark text-lg">
+              ${currentPrayersFilter === 'active' ? 'All Inquiries & Prayers Handled!' : 'No Completed Records Yet'}
+            </h4>
+            <p class="text-xs text-slate-500 max-w-sm mx-auto">
+              ${currentPrayersFilter === 'active' ? 'New confidential prayer submissions and planned Sunday visits from the website will automatically appear here.' : 'Prayers marked as done will be safely archived here for your records.'}
+            </p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = displayedList.map(item => {
+        const isDone = item.status === 'done';
+        const isVisit = item.type === 'visit_inquiry';
+
+        return `
+          <div class="bg-white p-5 rounded-3xl border ${isDone ? 'border-slate-200 bg-slate-50/50' : 'border-slate-200/80'} custom-shadow flex flex-col sm:flex-row sm:items-center justify-between gap-4 transition-all">
+            <div class="space-y-1.5">
+              <div class="flex items-center gap-2 flex-wrap">
+                <span class="text-xs font-bold text-forest-dark">${item.name || 'Anonymous Believer'}</span>
+                <span class="text-[11px] px-2.5 py-0.5 rounded-full font-semibold ${isVisit ? 'bg-sky-100 text-sky-800' : 'bg-amber-100 text-amber-800'}">
+                  ${item.category || (isVisit ? 'Planned Visit' : 'Prayer Request')}
+                </span>
+                <span class="text-[11px] text-slate-400 font-medium">${item.timeAgo || item.date}</span>
+                ${item.confidential ? '<span class="text-[10px] px-2 py-0.5 rounded bg-emerald-50 text-primary font-bold">Confidential</span>' : ''}
+                ${isDone ? '<span class="text-[10px] px-2 py-0.5 rounded bg-slate-200 text-slate-700 font-bold">Marked Prayed & Handled</span>' : ''}
+              </div>
+              <p class="text-xs text-slate-600 leading-relaxed max-w-2xl">
+                "${item.message || 'No additional notes provided.'}"
+              </p>
+            </div>
+
+            <div class="flex items-center gap-2 self-start sm:self-auto shrink-0">
+              ${!isDone ? `
+                <button 
+                  type="button" 
+                  onclick="window.markPrayerDone('${item.id}')" 
+                  class="px-4 py-2 rounded-xl bg-forest-tint text-primary hover:bg-emerald-100 text-xs font-bold flex items-center gap-1.5 transition-all shadow-2xs active:scale-95 cursor-pointer">
+                  <span class="material-symbols-outlined text-sm">check_circle</span>
+                  <span>Mark as Done</span>
+                </button>
+              ` : `
+                <span class="text-xs text-slate-400 flex items-center gap-1">
+                  <span class="material-symbols-outlined text-sm text-emerald-600">done_all</span> Done
+                </span>
+              `}
+              <button 
+                type="button" 
+                onclick="window.deletePrayer('${item.id}')" 
+                class="p-2 rounded-xl text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-colors cursor-pointer" 
+                title="Remove Entry">
+                <span class="material-symbols-outlined text-base">delete</span>
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    window.markPrayerDone = function(id) {
+      store.markPrayerDone(id);
+      renderDashboard();
+      alert('Prayer request marked as done and removed from active queue!');
+    };
+
+    window.deletePrayer = function(id) {
+      if (confirm('Are you sure you want to delete this inquiry record?')) {
+        store.deletePrayer(id);
+        renderDashboard();
+      }
+    };
 
     window.openNewItemModal = function() {
       // Toggle dropdown instead of forcing single modal
