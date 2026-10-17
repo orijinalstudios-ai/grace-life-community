@@ -21,6 +21,31 @@ function handler(req, res) {
     let reqPath = decodeURI((req.url || '/').split('?')[0]);
     if (reqPath === '/' || reqPath === '') reqPath = '/index.html';
 
+    // Dedicated SEO Crawler Endpoints
+    if (reqPath === '/robots.txt') {
+      res.writeHead(200, {
+        'Content-Type': 'text/plain; charset=utf-8',
+        'Cache-Control': 'public, max-age=86400',
+        'Access-Control-Allow-Origin': '*'
+      });
+      res.end("User-agent: *\nAllow: /\n\nSitemap: https://grace-life-community.vercel.app/sitemap.xml\n");
+      return;
+    }
+
+    if (reqPath === '/sitemap.xml') {
+      const sitemapPath = path.join(__dirname, 'sitemap.xml');
+      const sitemapContent = fs.existsSync(sitemapPath) 
+        ? fs.readFileSync(sitemapPath, 'utf8')
+        : `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>https://grace-life-community.vercel.app/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url></urlset>`;
+      res.writeHead(200, {
+        'Content-Type': 'application/xml; charset=utf-8',
+        'Cache-Control': 'public, max-age=86400',
+        'Access-Control-Allow-Origin': '*'
+      });
+      res.end(sitemapContent);
+      return;
+    }
+
     const safePath = path.normalize(reqPath).replace(/^(\.\.[\/\\])+/, '');
     const filePath = path.join(__dirname, safePath);
 
