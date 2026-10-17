@@ -347,8 +347,10 @@
             <span>Plan Your Visit</span>
             <span class="material-symbols-outlined text-base">east</span>
           </button>
-          <button class="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-surface-card border border-primary/20 text-primary text-sm font-semibold hover:bg-forest-tint transition-all cursor-pointer" data-open-video="latest">
-            <span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">play_circle</span>
+          <button class="group inline-flex items-center gap-3 px-6 py-3.5 rounded-full bg-white/90 hover:bg-white border border-primary/20 hover:border-primary/40 text-forest-dark text-sm font-bold shadow-xs hover:shadow-md hover:-translate-y-0.5 active:scale-[0.98] transition-all cursor-pointer backdrop-blur-sm" data-open-video="latest">
+            <span class="w-7 h-7 rounded-full bg-forest-tint group-hover:bg-primary text-primary group-hover:text-white flex items-center justify-center transition-colors shadow-2xs">
+              <span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+            </span>
             <span>Watch Latest Message</span>
           </button>
         </div>
@@ -648,11 +650,16 @@
             45 mins
           </span>
         </div>
-        <!-- Centered Frosted Play Pill Button -->
-        <button class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 inline-flex items-center gap-3 px-6 py-3.5 rounded-full bg-white/95 backdrop-blur-md text-forest-dark font-semibold shadow-2xl hover:bg-white hover:scale-105 transition-all pointer-events-none">
-          <span class="material-symbols-outlined text-primary text-2xl" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
-          <span>Watch Video</span>
-        </button>
+        <!-- Modernized Watch Video Play Button -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 group-hover:scale-105 transition-all duration-300 pointer-events-none">
+          <div class="inline-flex items-center gap-3 px-5 sm:px-6 py-3 sm:py-3.5 rounded-full bg-white/90 backdrop-blur-xl border border-white/60 text-forest-dark font-bold shadow-[0_20px_50px_rgba(0,0,0,0.35)] transition-all">
+            <span class="relative flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full bg-primary text-white shadow-md">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary/40 opacity-75"></span>
+              <span class="material-symbols-outlined text-lg sm:text-xl" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+            </span>
+            <span class="tracking-wider text-xs sm:text-sm uppercase font-extrabold text-forest-dark">Watch Video</span>
+          </div>
+        </div>
       </div>
       
       <!-- Sermon Info & Audio Controls (5 cols) -->
@@ -750,8 +757,9 @@
             <p class="text-xs text-on-surface-variant leading-relaxed">Philippians 4:6-7 — Discovering true emotional rest in a chaotic world through persistent thanksgiving.</p>
           </div>
           <div class="pt-4 mt-4 border-t border-primary/10 flex items-center justify-between text-xs">
-            <button class="font-semibold text-primary hover:text-forest-dark flex items-center gap-1 cursor-pointer" data-open-video="peace" data-video-title="Overcoming Worry Through Supernatural Peace">
-              Listen &amp; Watch <span class="material-symbols-outlined text-sm">play_circle</span>
+            <button class="group inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-surface-warm hover:bg-primary text-primary hover:text-white text-xs font-bold transition-all shadow-2xs hover:shadow-xs cursor-pointer active:scale-95" data-open-video="peace" data-video-title="Overcoming Worry Through Supernatural Peace">
+              <span>Listen &amp; Watch</span>
+              <span class="material-symbols-outlined text-sm group-hover:translate-x-0.5 transition-transform" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
             </button>
             <span class="text-on-surface-variant">Series: Rest in Favor</span>
           </div>
@@ -777,8 +785,9 @@
             <p class="text-xs text-on-surface-variant leading-relaxed">Ephesians 2:10 — Unlocking your unique spiritual gifts and assignments to impact your marketplace.</p>
           </div>
           <div class="pt-4 mt-4 border-t border-primary/10 flex items-center justify-between text-xs">
-            <button class="font-semibold text-primary hover:text-forest-dark flex items-center gap-1 cursor-pointer" data-open-video="destiny" data-video-title="Positioned for Destiny: You Are God's Masterpiece">
-              Listen &amp; Watch <span class="material-symbols-outlined text-sm">play_circle</span>
+            <button class="group inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-surface-warm hover:bg-primary text-primary hover:text-white text-xs font-bold transition-all shadow-2xs hover:shadow-xs cursor-pointer active:scale-95" data-open-video="destiny" data-video-title="Positioned for Destiny: You Are God's Masterpiece">
+              <span>Listen &amp; Watch</span>
+              <span class="material-symbols-outlined text-sm group-hover:translate-x-0.5 transition-transform" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
             </button>
             <span class="text-on-surface-variant">Series: Identity Awakening</span>
           </div>
@@ -804,8 +813,9 @@
             <p class="text-xs text-on-surface-variant leading-relaxed">1 Samuel 18 — How covenant relationship, vulnerability, and loyalty protect your soul through seasons.</p>
           </div>
           <div class="pt-4 mt-4 border-t border-primary/10 flex items-center justify-between text-xs">
-            <button class="font-semibold text-primary hover:text-forest-dark flex items-center gap-1 cursor-pointer" data-open-video="friendship" data-video-title="Building Covental, Life-Giving Friendships">
-              Listen &amp; Watch <span class="material-symbols-outlined text-sm">play_circle</span>
+            <button class="group inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-surface-warm hover:bg-primary text-primary hover:text-white text-xs font-bold transition-all shadow-2xs hover:shadow-xs cursor-pointer active:scale-95" data-open-video="friendship" data-video-title="Building Covental, Life-Giving Friendships">
+              <span>Listen &amp; Watch</span>
+              <span class="material-symbols-outlined text-sm group-hover:translate-x-0.5 transition-transform" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
             </button>
             <span class="text-on-surface-variant">Series: Rooted Together</span>
           </div>
@@ -1727,7 +1737,7 @@ function renderEvents() {
           </div>
 
           <!-- Category Badge -->
-          <span class="absolute top-3 right-3 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-secondary text-forest-dark shadow-sm">
+          <span class="absolute top-3 right-3 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-secondary text-white shadow-md border border-white/20">
             ${ev.category || 'Gathering'}
           </span>
 

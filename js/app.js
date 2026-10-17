@@ -316,7 +316,7 @@ function renderEvents() {
           </div>
 
           <!-- Category Badge -->
-          <span class="absolute top-3 right-3 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-secondary text-forest-dark shadow-sm">
+          <span class="absolute top-3 right-3 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-secondary text-white shadow-md border border-white/20">
             ${ev.category || 'Gathering'}
           </span>
 
