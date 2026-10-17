@@ -44,3 +44,20 @@ Deploy with the Vercel CLI or connect this GitHub repository directly to [Vercel
 npx vercel
 ```
 Or import the GitHub repository in the Vercel Dashboard for instant continuous deployment.
+
+---
+
+## 🔍 Search Engine Optimization (SEO) & Indexing
+
+The website includes built-in enterprise-grade SEO architecture:
+- **Crawler Directives**: [`robots.txt`](./robots.txt) permits all major search bots and points directly to the sitemap index.
+- **XML Sitemap**: [`sitemap.xml`](./sitemap.xml) exposes key section anchors (`#about-us`, `#sermons`, `#events`, `#blog`, `#give`) with update frequencies.
+- **Schema.org Structured Data**: Embedded JSON-LD schema for `Church` & `PlaceOfWorship` with sanctuary geolocation (`NG-RI`, Borikiri coordinates), service times, official email (`gracelifeauthentic@gmail.com`), and verified social channels.
+- **Open Graph & Twitter Cards**: High-fidelity metadata for WhatsApp, Facebook, iMessage, and X previews.
+
+### Submitting to Google Search Console
+1. Go to **[Google Search Console](https://search.google.com/search-console)**.
+2. Add your property URL: `https://grace-life-community.vercel.app/`.
+3. Under **Sitemaps**, submit `https://grace-life-community.vercel.app/sitemap.xml`.
+4. Click **Request Indexing** to expedite Google's initial crawl.
+
