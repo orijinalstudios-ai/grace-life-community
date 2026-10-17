@@ -35,14 +35,30 @@ const FAVICON_BUFFER = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAAD0eNT6
       return;
     }
 
+    // Dedicated /admin portal route
+    if (reqPath === '/admin' || reqPath === '/admin.html') {
+      const adminPath = path.join(__dirname, 'admin.html');
+      res.writeHead(200, {
+        'Content-Type': 'text/html; charset=utf-8',
+        'Cache-Control': 'no-cache, no-store, must-revalidate',
+        'Access-Control-Allow-Origin': '*'
+      });
+      fs.createReadStream(adminPath).pipe(res);
+      return;
+    }
+
     // Dedicated SEO Crawler Endpoints
     if (reqPath === '/robots.txt') {
+      const robotsPath = path.join(__dirname, 'robots.txt');
+      const robotsContent = fs.existsSync(robotsPath)
+        ? fs.readFileSync(robotsPath, 'utf8')
+        : "User-agent: *\nAllow: /\nDisallow: /admin\nDisallow: /admin.html\n\nSitemap: https://grace-life-community.vercel.app/sitemap.xml\n";
       res.writeHead(200, {
         'Content-Type': 'text/plain; charset=utf-8',
         'Cache-Control': 'public, max-age=86400',
         'Access-Control-Allow-Origin': '*'
       });
-      res.end("User-agent: *\nAllow: /\n\nSitemap: https://grace-life-community.vercel.app/sitemap.xml\n");
+      res.end(robotsContent);
       return;
     }
 

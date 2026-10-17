@@ -1,5 +1,7 @@
 User-agent: *
 Allow: /
+Disallow: /admin
+Disallow: /admin.html
 
 # Sitemap Index
 Sitemap: https://grace-life-community.vercel.app/sitemap.xml

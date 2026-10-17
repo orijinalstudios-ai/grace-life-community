@@ -267,16 +267,41 @@
         <span class="material-symbols-outlined text-2xl">close</span>
       </button>
     </div>
-    <nav class="flex flex-col gap-3 pt-6 text-sm font-medium">
-      <a class="text-on-surface hover:text-primary transition-colors py-2 border-b border-surface-warm" href="#about-us">About Our Church</a>
-      <a class="text-on-surface hover:text-primary transition-colors py-2 border-b border-surface-warm" href="#sermons">Messages &amp; Sermons</a>
-      <a class="text-on-surface hover:text-primary transition-colors py-2 border-b border-surface-warm" href="#events">Events Calendar</a>
-      <a class="text-on-surface hover:text-primary transition-colors py-2 border-b border-surface-warm" href="#blog">Pastor's Desk &amp; Blog</a>
-      <a class="text-on-surface hover:text-primary transition-colors py-2 border-b border-surface-warm" href="#services">Plan Your Visit</a>
-      <button type="button" class="text-left text-on-surface hover:text-primary transition-colors py-2 border-b border-surface-warm flex items-center justify-between cursor-pointer" data-open-prayer data-close-drawer>
-        <span>Request Prayer</span>
-        <span class="material-symbols-outlined text-primary text-lg">favorite</span>
+    <nav class="flex flex-col gap-1.5 pt-5 text-sm font-medium">
+      <a class="flex items-center gap-3 text-on-surface hover:text-primary transition-colors py-2.5 px-3 rounded-xl hover:bg-forest-tint border-b border-surface-warm/60 active:scale-[0.99]" href="#about-us">
+        <span class="material-symbols-outlined text-primary text-xl">church</span>
+        <span>About Our Church</span>
+      </a>
+      <a class="flex items-center gap-3 text-on-surface hover:text-primary transition-colors py-2.5 px-3 rounded-xl hover:bg-forest-tint border-b border-surface-warm/60 active:scale-[0.99]" href="#sermons">
+        <span class="material-symbols-outlined text-primary text-xl">menu_book</span>
+        <span>Messages &amp; Sermons</span>
+      </a>
+      <a class="flex items-center gap-3 text-on-surface hover:text-primary transition-colors py-2.5 px-3 rounded-xl hover:bg-forest-tint border-b border-surface-warm/60 active:scale-[0.99]" href="#events">
+        <span class="material-symbols-outlined text-primary text-xl">event</span>
+        <span>Events Calendar</span>
+      </a>
+      <a class="flex items-center gap-3 text-on-surface hover:text-primary transition-colors py-2.5 px-3 rounded-xl hover:bg-forest-tint border-b border-surface-warm/60 active:scale-[0.99]" href="#blog">
+        <span class="material-symbols-outlined text-primary text-xl">edit_note</span>
+        <span>Pastor's Desk &amp; Blog</span>
+      </a>
+      <a class="flex items-center gap-3 text-on-surface hover:text-primary transition-colors py-2.5 px-3 rounded-xl hover:bg-forest-tint border-b border-surface-warm/60 active:scale-[0.99]" href="#services">
+        <span class="material-symbols-outlined text-primary text-xl">pin_drop</span>
+        <span>Plan Your Visit</span>
+      </a>
+      <button type="button" class="text-left text-on-surface hover:text-primary transition-colors py-2.5 px-3 rounded-xl hover:bg-forest-tint border-b border-surface-warm/60 flex items-center justify-between cursor-pointer active:scale-[0.99]" data-open-prayer data-close-drawer>
+        <span class="flex items-center gap-3">
+          <span class="material-symbols-outlined text-primary text-xl">favorite</span>
+          <span>Request Prayer</span>
+        </span>
+        <span class="material-symbols-outlined text-on-surface-variant text-base">arrow_forward</span>
       </button>
+      <a class="flex items-center justify-between text-on-surface-variant hover:text-primary transition-colors py-2.5 px-3 rounded-xl hover:bg-forest-tint border-b border-surface-warm/60 text-xs active:scale-[0.99]" href="/admin" target="_blank">
+        <span class="flex items-center gap-3">
+          <span class="material-symbols-outlined text-primary text-xl">admin_panel_settings</span>
+          <span class="font-semibold">Admin Portal</span>
+        </span>
+        <span class="material-symbols-outlined text-sm">open_in_new</span>
+      </a>
     </nav>
   </div>
   <div class="pt-6 border-t border-primary/10 space-y-3">
@@ -1061,7 +1086,7 @@
           <li><a class="text-primary font-semibold hover:text-forest-dark transition-colors" href="#give">Online Giving Portal</a></li>
           <li><a class="text-on-surface-variant hover:text-primary transition-colors cursor-pointer" data-open-search>Search Website</a></li>
           <li><a class="text-on-surface-variant hover:text-primary transition-colors cursor-pointer" data-open-prayer>Pastoral Care &amp; Support</a></li>
-          <li><a class="text-on-surface-variant/80 hover:text-primary transition-colors cursor-pointer flex items-center gap-1.5 pt-1" data-open-admin title="Pastoral Admin Portal (Shift + A)"><span class="material-symbols-outlined text-sm">lock</span> Admin Portal</a></li>
+          <li><a class="text-on-surface-variant/80 hover:text-primary transition-colors cursor-pointer flex items-center gap-1.5 pt-1" href="/admin" target="_blank" title="Pastoral Admin Portal (Protected)"><span class="material-symbols-outlined text-sm">lock</span> Admin Portal</a></li>
         </ul>
       </div>
     </div>
@@ -1145,158 +1170,7 @@
   </div>
 </div>
 
-<!-- 3. NEW: Admin Management Portal Modal -->
-<div id="admin-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden items-center justify-center p-4">
-  <div class="bg-surface-card rounded-3xl w-full max-w-3xl max-h-[90vh] overflow-hidden shadow-2xl border border-primary/20 flex flex-col">
-    <!-- Admin Header -->
-    <div class="p-5 bg-forest-dark text-white flex items-center justify-between shrink-0">
-      <div class="flex items-center gap-3">
-        <div class="h-10 w-10 rounded-xl bg-primary flex items-center justify-center text-primary-fixed">
-          <span class="material-symbols-outlined text-2xl">shield</span>
-        </div>
-        <div>
-          <h3 class="font-headline text-lg sm:text-xl font-bold">Pastoral Admin Portal</h3>
-          <p class="text-xs text-white/70">Publish events, devotionals, and Pastor's Desk articles</p>
-        </div>
-      </div>
-      <button id="admin-modal-close" type="button" class="text-white/80 hover:text-white p-1 rounded-lg hover:bg-white/10 transition-colors cursor-pointer">
-        <span class="material-symbols-outlined text-2xl">close</span>
-      </button>
-    </div>
-
-    <!-- Admin Navigation Tabs -->
-    <div class="px-6 pt-4 pb-2 bg-surface-warm border-b border-primary/10 flex items-center gap-2 overflow-x-auto shrink-0">
-      <button type="button" class="admin-tab-btn px-4 py-2 text-xs font-semibold rounded-lg bg-primary text-white shadow-xs cursor-pointer" data-tab="event">
-        Add Event
-      </button>
-      <button type="button" class="admin-tab-btn px-4 py-2 text-xs font-semibold rounded-lg text-on-surface-variant hover:text-primary transition-colors cursor-pointer" data-tab="article">
-        Write Article / Blog
-      </button>
-      <button type="button" class="admin-tab-btn px-4 py-2 text-xs font-semibold rounded-lg text-on-surface-variant hover:text-primary transition-colors cursor-pointer" data-tab="manage">
-        Manage Live Items
-      </button>
-    </div>
-
-    <!-- Admin Content Scroll Area -->
-    <div class="p-6 sm:p-8 overflow-y-auto flex-1">
-      <!-- Tab Panel 1: Add Event Form -->
-      <div id="admin-panel-event" class="admin-tab-panel space-y-4">
-        <div>
-          <h4 class="font-headline text-lg font-bold text-forest-dark">Create New Church Gathering</h4>
-          <p class="text-xs text-on-surface-variant">This event will instantly appear on the live church calendar with automatic .ics calendar export.</p>
-        </div>
-        <form id="admin-event-form" class="space-y-4">
-          <div>
-            <label class="block text-xs font-semibold text-on-surface mb-1">Event Title *</label>
-            <input id="admin-event-title" required type="text" class="w-full h-11 px-3 rounded-xl border border-outline-variant bg-surface-canvas text-xs sm:text-sm focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none" placeholder="e.g. Christmas Eve Candlelight Service"/>
-          </div>
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <div>
-              <label class="block text-xs font-semibold text-on-surface mb-1">Month (3 Letters) *</label>
-              <input id="admin-event-month" required maxlength="3" type="text" class="w-full h-11 px-3 rounded-xl border border-outline-variant bg-surface-canvas text-xs sm:text-sm uppercase focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none" placeholder="DEC"/>
-            </div>
-            <div>
-              <label class="block text-xs font-semibold text-on-surface mb-1">Day of Month *</label>
-              <input id="admin-event-day" required min="1" max="31" type="number" class="w-full h-11 px-3 rounded-xl border border-outline-variant bg-surface-canvas text-xs sm:text-sm focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none" placeholder="24"/>
-            </div>
-            <div>
-              <label class="block text-xs font-semibold text-on-surface mb-1">Category *</label>
-              <select id="admin-event-category" class="w-full h-11 px-3 rounded-xl border border-outline-variant bg-surface-canvas text-xs sm:text-sm focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none">
-                <option value="Flagship">Flagship / Celebration</option>
-                <option value="Midweek">Midweek Service</option>
-                <option value="Youth">Youth &amp; Young Adults</option>
-                <option value="Outreach">Community Outreach</option>
-              </select>
-            </div>
-          </div>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div>
-              <label class="block text-xs font-semibold text-on-surface mb-1">Date &amp; Time Text *</label>
-              <input id="admin-event-time" required type="text" class="w-full h-11 px-3 rounded-xl border border-outline-variant bg-surface-canvas text-xs sm:text-sm focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none" placeholder="Tuesday • 6:00 PM"/>
-            </div>
-            <div>
-              <label class="block text-xs font-semibold text-on-surface mb-1">Sanctuary / Location *</label>
-              <input id="admin-event-location" required type="text" class="w-full h-11 px-3 rounded-xl border border-outline-variant bg-surface-canvas text-xs sm:text-sm focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none" placeholder="Main Worship Sanctuary"/>
-            </div>
-          </div>
-          <div>
-            <label class="block text-xs font-semibold text-on-surface mb-1">Description *</label>
-            <textarea id="admin-event-desc" required rows="3" class="w-full p-3 rounded-xl border border-outline-variant bg-surface-canvas text-xs sm:text-sm focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none" placeholder="Describe the gathering..."></textarea>
-          </div>
-          <button type="submit" class="w-full py-3.5 rounded-full bg-primary text-white text-xs sm:text-sm font-bold uppercase tracking-wider hover:bg-forest-dark transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer">
-            <span class="material-symbols-outlined text-lg">event_available</span>
-            <span>Publish Event to Live Calendar</span>
-          </button>
-        </form>
-      </div>
-
-      <!-- Tab Panel 2: Write Article / Devotional Form -->
-      <div id="admin-panel-article" class="admin-tab-panel space-y-4 hidden">
-        <div>
-          <h4 class="font-headline text-lg font-bold text-forest-dark">Publish Pastor’s Desk Article / Devotional</h4>
-          <p class="text-xs text-on-surface-variant">Share spiritual encouragement, biblical revelations, or church leadership notes.</p>
-        </div>
-        <form id="admin-article-form" class="space-y-4">
-          <div>
-            <label class="block text-xs font-semibold text-on-surface mb-1">Article Title *</label>
-            <input id="admin-art-title" required type="text" class="w-full h-11 px-3 rounded-xl border border-outline-variant bg-surface-canvas text-xs sm:text-sm focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none" placeholder="e.g. Abiding in the Vine: Secrets to Fruitful Living"/>
-          </div>
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <div>
-              <label class="block text-xs font-semibold text-on-surface mb-1">Author Name *</label>
-              <input id="admin-art-author" required type="text" class="w-full h-11 px-3 rounded-xl border border-outline-variant bg-surface-canvas text-xs sm:text-sm focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none" placeholder="Pst. Inaifie Allaputa"/>
-            </div>
-            <div>
-              <label class="block text-xs font-semibold text-on-surface mb-1">Category *</label>
-              <select id="admin-art-category" class="w-full h-11 px-3 rounded-xl border border-outline-variant bg-surface-canvas text-xs sm:text-sm focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none">
-                <option value="Devotional">Devotional</option>
-                <option value="Leadership">Leadership</option>
-                <option value="Life Stories">Life Stories</option>
-              </select>
-            </div>
-            <div>
-              <label class="block text-xs font-semibold text-on-surface mb-1">Scripture Reference</label>
-              <input id="admin-art-scripture" type="text" class="w-full h-11 px-3 rounded-xl border border-outline-variant bg-surface-canvas text-xs sm:text-sm focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none" placeholder="John 15:1-8"/>
-            </div>
-          </div>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div>
-              <label class="block text-xs font-semibold text-on-surface mb-1">Estimated Read Time</label>
-              <input id="admin-art-readtime" type="text" class="w-full h-11 px-3 rounded-xl border border-outline-variant bg-surface-canvas text-xs sm:text-sm focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none" placeholder="5 min read"/>
-            </div>
-            <div>
-              <label class="block text-xs font-semibold text-on-surface mb-1">Cover Image URL (optional)</label>
-              <input id="admin-art-image" type="url" class="w-full h-11 px-3 rounded-xl border border-outline-variant bg-surface-canvas text-xs sm:text-sm focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none" placeholder="https://images.unsplash.com/..."/>
-            </div>
-          </div>
-          <div>
-            <label class="block text-xs font-semibold text-on-surface mb-1">Brief Excerpt / Summary *</label>
-            <textarea id="admin-art-summary" required rows="2" class="w-full p-3 rounded-xl border border-outline-variant bg-surface-canvas text-xs sm:text-sm focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none" placeholder="Short preview text for cards..."></textarea>
-          </div>
-          <div>
-            <label class="block text-xs font-semibold text-on-surface mb-1">Full Article Content</label>
-            <textarea id="admin-art-content" rows="4" class="w-full p-3 rounded-xl border border-outline-variant bg-surface-canvas text-xs sm:text-sm focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none" placeholder="Write full devotional reflection here..."></textarea>
-          </div>
-          <button type="submit" class="w-full py-3.5 rounded-full bg-primary text-white text-xs sm:text-sm font-bold uppercase tracking-wider hover:bg-forest-dark transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer">
-            <span class="material-symbols-outlined text-lg">post_add</span>
-            <span>Publish Article to Site</span>
-          </button>
-        </form>
-      </div>
-
-      <!-- Tab Panel 3: Manage Content List -->
-      <div id="admin-panel-manage" class="admin-tab-panel space-y-4 hidden">
-        <div>
-          <h4 class="font-headline text-lg font-bold text-forest-dark">Live Content Inventory</h4>
-          <p class="text-xs text-on-surface-variant">Review all published events and articles. You can delete items or reset all content back to factory defaults.</p>
-        </div>
-        <div id="admin-manage-container">
-          <!-- Rendered dynamically -->
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+<!-- 3. Dedicated Admin Portal is located at /admin (admin.html) -->
 
 <!-- 4. Giving Checkout Modal -->
 <div id="giving-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden items-center justify-center p-4">
