@@ -458,7 +458,12 @@ window.readFullArticle = function(articleId) {
   document.getElementById('reader-author').textContent = `By ${art.author} • ${art.date} • ${art.readTime || '5 min'}`;
   document.getElementById('reader-category').textContent = art.category;
   document.getElementById('reader-summary').textContent = art.summary;
-  document.getElementById('reader-content').textContent = art.content || art.summary;
+  
+  const contentEl = document.getElementById('reader-content');
+  if (contentEl) {
+    // Render formatted rich HTML if available, preserving paragraphs, headings and lists
+    contentEl.innerHTML = art.content || art.summary || '';
+  }
   
   if (art.scripture) {
     document.getElementById('reader-scripture').textContent = `Scripture Anchor: ${art.scripture}`;
